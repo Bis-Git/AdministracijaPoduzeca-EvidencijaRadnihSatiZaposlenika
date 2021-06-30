@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplikacija za administraciju", "Aplikacija za administraciju\Aplikacija za administraciju.csproj", "{A66A2C42-FA1D-47A8-958A-B502EE66ADAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aplikacija za evidenciju radnih sati", "Aplikacija za evidenciju radnih sati\Aplikacija za evidenciju radnih sati.csproj", "{17DA227A-9150-49B4-955E-03F1A2C74C29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RWA_DAL", "RWA_DAL\RWA_DAL.csproj", "{2A1F6C22-4AEE-4F75-8BDC-C365123009A5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A66A2C42-FA1D-47A8-958A-B502EE66ADAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A66A2C42-FA1D-47A8-958A-B502EE66ADAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A66A2C42-FA1D-47A8-958A-B502EE66ADAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A66A2C42-FA1D-47A8-958A-B502EE66ADAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17DA227A-9150-49B4-955E-03F1A2C74C29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DA227A-9150-49B4-955E-03F1A2C74C29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17DA227A-9150-49B4-955E-03F1A2C74C29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17DA227A-9150-49B4-955E-03F1A2C74C29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A1F6C22-4AEE-4F75-8BDC-C365123009A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A1F6C22-4AEE-4F75-8BDC-C365123009A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A1F6C22-4AEE-4F75-8BDC-C365123009A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A1F6C22-4AEE-4F75-8BDC-C365123009A5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48FF3139-E5FF-4F58-A258-EF8C23C381C2}
+	EndGlobalSection
+EndGlobal

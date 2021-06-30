@@ -1,0 +1,72 @@
+﻿@model IEnumerable<RWA_DAL.Models.Satnica>
+@using RWA_DAL.Models;
+@using RWA_DAL;
+
+@{
+    ViewBag.Title = "PregledSatnica";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Djelatnik user = Session["user"] as Djelatnik;
+    List<Djelatnik> djelatnici = new List<Djelatnik>();
+
+    foreach (var model in Model)
+    {
+        djelatnici.Add(Repository.GetDjelatnik(model.DjelatnikID));
+    }
+
+}
+
+<h2>Pregled satnica</h2>
+
+
+<div class="jumbotron">
+    @foreach (var model in Model)
+    {
+        if (model.JePoslano)
+	{
+		if (model.JePotvrdeno)
+        {
+            <div class="alert alert-success">
+                <div class="d-flex flex-row justify-content-around">
+                    <span class="font-weight-bold">
+                        @Html.HiddenFor(x => model.IDSatnica)
+                        @Html.DisplayFor(x => djelatnici.First(d => d.IDDjelatnik == model.DjelatnikID).Ime)
+                        @Html.DisplayFor(x => djelatnici.First(d => d.IDDjelatnik == model.DjelatnikID).Prezime)
+                    </span>
+                    <span>
+                        @Html.DisplayFor(x => model.Datum)
+                    </span>
+
+                    @Html.ActionLink(
+                        linkText: "Otvori",
+                        actionName: "PregledSatniceDjelatnika",
+                        controllerName: "Home",
+                        routeValues: new { satnicaId = model.IDSatnica, djelatnikId = model.DjelatnikID},
+                        htmlAttributes: new { @class = "btn btn-warning btn-lg" })
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-secondary">
+                <div class="d-flex flex-row justify-content-around">
+                    <span class="font-weight-bold">
+                        @Html.HiddenFor(x => model.IDSatnica)
+                        @Html.DisplayFor(x => djelatnici.First(d => d.IDDjelatnik == model.DjelatnikID).Ime)
+                        @Html.DisplayFor(x => djelatnici.First(d => d.IDDjelatnik == model.DjelatnikID).Prezime)
+                    </span>
+                    <span>
+                        @Html.DisplayFor(x => model.Datum)
+                    </span>
+                    @Html.ActionLink(
+                        linkText: "Otvori",
+                        actionName: "PregledSatniceDjelatnika",
+                        controllerName: "Home",
+                        routeValues: new { satnicaId = model.IDSatnica, djelatnikId = model.DjelatnikID },
+                        htmlAttributes: new { @class = "btn btn-warning btn-lg" })
+                </div>
+            </div>
+        } 
+	}
+    }
+</div>
+

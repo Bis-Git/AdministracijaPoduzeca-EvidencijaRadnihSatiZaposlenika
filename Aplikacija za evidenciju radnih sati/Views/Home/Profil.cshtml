@@ -1,0 +1,67 @@
+﻿@using RWA_DAL;
+@using RWA_DAL.Models;
+@model Djelatnik
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Djelatnik user = Session["user"] as Djelatnik;
+
+    
+
+}
+
+<h1 style="text-align:center">Moj profil</h1>
+<hr />
+
+
+<div class="row">
+    <div class="col-sm-4 m-auto">
+        <div>
+            @Html.Label(labelText: "Ime: ", expression: "ime")
+            @Html.Label(labelText: user.Ime, expression: "ime", htmlAttributes: new { @class = "float-right" })
+        </div>
+        <div>
+            @Html.Label(labelText: "Prezime: ", expression: "prezime")
+            @Html.Label(labelText: user.Prezime, expression: "prezime", htmlAttributes: new { @class = "float-right" })
+        </div>
+        <div>
+            @Html.Label(labelText: "E-mail: ", expression: "email")
+            @Html.Label(labelText: user.Email, expression: "email", htmlAttributes: new { @class = "float-right" })
+        </div>
+        <div>
+            @Html.Label(labelText: "Datum zaposlenja: ", expression: "datum")
+            @Html.Label(labelText: user.DatumZaposljenja.ToLongDateString(), expression: "datum", htmlAttributes: new { @class = "float-right" })
+        </div>
+        <div>
+            @Html.Label(labelText: "Tip djelatnika: ", expression: "tipDjelatnika")
+            @Html.Label(labelText: Repository.GetTipDjelatnika(user.TipDjelatnikaID).Naziv, expression: "tipDjelatnika", htmlAttributes: new { @class = "float-right" })
+        </div>
+
+
+        <h2>Promjena zaporke</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.Hidden(value:user.IDDjelatnik, name:"id")
+            <div class="form-group">
+                @Html.Label(labelText: "Unesi staru zaporku:", expression: "staraZaporka")
+                @Html.Password(name: "oldPass", value: null, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label(labelText: "Unesi novu zaporku:", expression: "novaZaporka")
+                @Html.Password(name: "newPass", value: null, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label(labelText: "Ponovi novu zaporku:", expression: "ponovnaZaporka")
+                @Html.Password(name: "passCheck", value: null, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.Label(labelText: $"{ViewBag.ErrMsg}", expression: "lblErrMsg", htmlAttributes: new { style = "color:#ff0000"})
+            </div>
+            <div class="form-group">
+                <input type="submit" name="btnSpremi" value="Spremi" class="btn btn-primary" />
+                <label id="lblInfo"></label>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿body {
+    margin:0px;
+    padding:0px;
+}
+
+.th {
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    box-shadow: 2px 1px 1px 2px rgba(0, 0, 0, 0.4);
+    background-color: #1B1B1E;
+    color: white;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table {
+    margin-bottom: 6em !important;
+}
+
+.toolStrip {
+    height: 80px;
+    background-color: #373F51;
+    margin-bottom: 20px;
+    justify-content: right;
+}
+
+.btn {
+    margin-top: 5px;
+    width: 100px;
+    height: 40px !important;
+    margin-right: 10px;
+}
+
+.btn-primary {
+    width: auto;
+    margin: 20px 5px 20px 5px;
+}
+
+.navbar {
+    background-color: #373F51 !important;
+}
+
+.footer {
+    background-color: #A9BCD0 !important;
+    color: black !important;
+    font-weight: bold;
+}
+
+.error-text{
+    color:red !important;
+}
+
+.info-text{
+    color:white;
+    vertical-align:middle;
+    float:right;
+}

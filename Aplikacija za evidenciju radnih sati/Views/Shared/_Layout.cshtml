@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+    @using RWA_DAL.Models
+
+    @{ 
+        Djelatnik user = Session["user"] as Djelatnik;
+    }
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @Html.ActionLink(linkText: "Satnice", controllerName: "Home", actionName: "Satnice", routeValues: null, htmlAttributes: new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink(linkText: "Profil",
+                   controllerName: "Home", actionName: "Profil",
+                   routeValues: null, htmlAttributes: new { @class = "nav-link" })
+                </li>
+                @if (user.IDDjelatnik < 3)
+                {
+                    <li class="nav-item">
+                        @Html.ActionLink(linkText: "Pregled satnica",
+                       controllerName: "Home", actionName: "PregledSatnica",
+                       routeValues: null, htmlAttributes: new { @class = "nav-link" })
+                    </li>
+                }
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    @Html.ActionLink(linkText: "Odjava", controllerName: "Home", actionName: "Login", routeValues: null, htmlAttributes: new { @class = "nav-link" })
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - Visoko učilište Algebra</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

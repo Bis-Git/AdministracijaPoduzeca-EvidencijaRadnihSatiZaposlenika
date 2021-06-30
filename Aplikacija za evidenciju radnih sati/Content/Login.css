@@ -1,0 +1,9 @@
+﻿body {
+    background-image: url('https://crm.radzen.com/assets/images/login-background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 99%;
+}
+.row{
+    margin-top:35%;
+}

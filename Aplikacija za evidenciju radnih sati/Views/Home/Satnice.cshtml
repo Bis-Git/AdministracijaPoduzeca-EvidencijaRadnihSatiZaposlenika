@@ -1,0 +1,187 @@
+﻿@using RWA_DAL;
+@using RWA_DAL.Models;
+
+@{
+    ViewBag.Title = "Satnica";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Djelatnik user = Session["user"] as Djelatnik;
+    List<SatnicaPoProjektu> satnice = new List<SatnicaPoProjektu>();
+    Satnica pregledSatnice = ViewBag.PregledSatnice as Satnica;
+    List<SatnicaPoProjektu> pregledSatnicaPoProjektu = new List<SatnicaPoProjektu>();
+
+    if (pregledSatnice != null)
+    {
+        pregledSatnicaPoProjektu = Repository.GetSatniceProjekataPoSatnicaID(pregledSatnice.IDSatnica).ToList();
+    }
+
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            satnice.Add(item);
+        }
+    }
+
+}
+
+<div class="row">
+    <div class="col-sm-2"><h3>Datum: </h3></div>
+    @if (pregledSatnice == null)
+    {
+        <div class="col-sm-2">@Html.TextBox(name: "datepicker", value: "", htmlAttributes: new { @class = "form-control text-center" })</div>
+    }
+    else
+    {
+        <div class="col-sm-2">@Html.TextBox(name: "datepicker", value: $"{pregledSatnice.Datum}", htmlAttributes: new { @class = "form-control text-center" })</div>
+    }
+
+</div>
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Projekti</th>
+            <th>Zabilježeno</th>
+            <th>Start/Stop</th>
+            <th>Radni sati</th>
+            <th>Prekovremeni sati</th>
+        </tr>
+    </thead>
+    <tbody class="Sati">
+        @if (pregledSatnice == null)
+        {
+            foreach (var projekt in Repository.GetProjektiDjelatnika(user.IDDjelatnik))
+            {
+                <tr>
+                    <td>
+                        @Html.Hidden("ProjektID", projekt.IDProjekt, new { @class = "projektID" })
+                        @Html.Label(labelText: projekt.Naziv, expression: "nazivProjekta")
+                    </td>
+                    <td><label class="timer-h">00</label>:<label class="timer-min">00</label>:<label class="timer-s">00</label></td>
+                    <td><button type="button" class="btn btn-primary btn-sm">Start</button><button type="button" class="btn btn-danger btn-sm">Stop</button></td>
+
+                    @if (satnice.Count != 0)
+                    {
+                        <td>@Html.TextBox(name: "radniSati", value: $"{satnice.Find(x => x.ProjektID == projekt.IDProjekt).RadniSati}", htmlAttributes: new { @class = "form-control work" })</td>
+                    }
+                    else
+                    {
+                        <td>@Html.TextBox(name: "radniSati", value: "", htmlAttributes: new { @class = "form-control work" })</td>
+                    }
+                    @if (satnice.Count != 0)
+                    {
+                        <td>@Html.TextBox(name: "prekovremeniSati", value: $"{satnice.Find(x => x.ProjektID == projekt.IDProjekt).PrekovremeniSati}", 
+                           htmlAttributes: new { @class = "form-control overtime" })</td>
+                    }
+                    else
+                    {
+                        <td>@Html.TextBox(name: "prekovremeniSati", value: "", htmlAttributes: new { @class = "form-control overtime" })</td>
+                    }
+
+                </tr>
+            }
+        }
+        else
+        {
+            foreach (var projekt in Repository.GetProjektiDjelatnika((int)ViewBag.DjelatnikId))
+            {
+                <tr>
+                    <td>
+                        @Html.Hidden("ProjektID", projekt.IDProjekt, new { @class = "projektID" })
+                        @Html.Label(labelText: projekt.Naziv, expression: "nazivProjekta")
+                    </td>
+                    <td><label class="timer-h">00</label>:<label class="timer-min">00</label>:<label class="timer-s">00</label></td>
+                    <td><button type="button" class="btn btn-primary btn-sm">Start</button><button type="button" class="btn btn-danger btn-sm">Stop</button></td>
+                    <td>@Html.TextBox(name: "radniSati", value: $"{pregledSatnicaPoProjektu.Find(x => x.ProjektID == projekt.IDProjekt).RadniSati}", htmlAttributes: new { @class = "form-control work" })</td>
+                    <td>@Html.TextBox(name: "prekovremeniSati", value: $"{pregledSatnicaPoProjektu.Find(x => x.ProjektID == projekt.IDProjekt).PrekovremeniSati}",
+                         htmlAttributes: new { @class = "form-control overtime" })</td>
+                </tr>
+            }
+        }
+
+        </tbody>
+    </table>
+
+<div class="row">
+    <div class="col-sm-10">
+        <h2>Komentar</h2>
+        @Html.TextArea(name: "komentar", htmlAttributes: new { @class = "form-control", rows="5", @style="resize: none;" })
+    </div>
+    <div class="col-sm-2 d-flex justify-content-center">
+
+        <div class="btn-group-vertical m-auto">
+
+            @if (pregledSatnice == null)
+            {
+                @Html.ActionLink(linkText: "Spremi", actionName: "Satnice", controllerName: "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-success mb-1" })
+                if (satnice.Count == 0)
+                {
+                    @Html.ActionLink(linkText: "Predaj", actionName: "Satnice", controllerName: "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary mb-1 disabled" })
+                    @Html.ActionLink(linkText: "Odustani", actionName: "Odustani", controllerName: "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-danger mb-1 disabled" })
+                }
+                else
+                {
+                    @Html.ActionLink(linkText: "Predaj", actionName: "Satnice", controllerName: "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-primary mb-1 predaj" })
+                    @Html.ActionLink(linkText: "Odustani", actionName: "Odustani", controllerName: "Home", routeValues: null, htmlAttributes: new { @class = "btn btn-danger mb-1 " })
+                }
+
+            }
+            else
+            {
+                @Html.ActionLink(linkText: "Potvrdi", actionName: "PotvrdiSatnice", controllerName: "Home", routeValues: new { idSatnica = pregledSatnice.IDSatnica }, 
+                    htmlAttributes: new { @class = "btn btn-warning mb-1" })
+            }
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/Stopwatch.js"></script>
+    <script src="~/Scripts/Datepicker.js"></script>
+    <script>
+        $(".btn-success").click(function (e) {
+
+            var radniSati = [];
+            var prekovremeniSati = [];
+            var komentar = $("#komentar").val();
+            var projektID = [];
+            var datum = $("#datepicker").datepicker('getDate');
+
+            $(".Sati").find(".work").each(function () {
+                radniSati.push($(this).val());
+            });
+
+            $(".Sati").find(".overtime").each(function () {
+                prekovremeniSati.push($(this).val());
+            });
+
+            $(".Sati").find(".projektID").each(function () {
+                projektID.push(parseInt($(this).val()));
+            });
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '@Url.Action(actionName: "SatnicePOSTData", controllerName: "Home")',
+                data: { 'rSati': radniSati, 'pSati': prekovremeniSati, 'komentar': komentar, 'projektID': projektID, 'datum': datum.toJSON() },
+                traditional: true
+            });
+        });
+
+        $('.predaj').click(function () {
+
+            var datum = $("#datepicker").datepicker('getDate');
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: '@Url.Action(actionName: "PredajSatnice", controllerName: "Home")',
+                data: { 'datum': datum.toJSON() },
+                traditional: true
+            });
+        });
+
+    </script>
+
+}
